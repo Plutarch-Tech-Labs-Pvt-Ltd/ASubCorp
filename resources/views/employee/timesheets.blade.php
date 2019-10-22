@@ -1,49 +1,35 @@
-@extends('layouts.app_employee')
-@section('title','Create Timesheets')
-@section('content')
-<!-- <INPUT type="button" value="Add Row" onclick="addRow('dataTable')" />
+<!DOCTYPE html>
+<html lang="en">
+@include('partials._head')
 
-<INPUT type="button" value="Delete Row" onclick="deleteRow('dataTable')" />
+<link href="{{asset('css/app.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<body class="nav-md" style="background-color:#fff; padding-left:60px; padding-right:60px;" >
 
-<TABLE id="dataTable" width="350px" border="1">
-    <TR>
-        <TD><INPUT type="checkbox" name="chk"/></TD>
-        <TD><INPUT type="text" name="txt"/></TD>
-        <TD>
-            <SELECT name="country">
-                <OPTION value="in">India</OPTION>
-                <OPTION value="de">Germany</OPTION>
-                <OPTION value="fr">France</OPTION>
-                <OPTION value="us">United States</OPTION>
-                <OPTION value="ch">Switzerland</OPTION>
-            </SELECT>
-        </TD>
-    </TR>
-</TABLE> -->
+
+  <!-- page content -->
+        <div class="right_col" role="main" >
+            <div class="page-title">
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="data-pjax">
+            <p>Start Date: <input type="text" id="datepicker1"></p>
+            <p>End Date: <input type="text" id="datepicker2"></p>
 <div class="container" style="overflow-x:auto;" >    
-    <table class="table table-fluid table-hover table-responsive" id = "myTable">
-        <thead>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-                <th>6</th>
-                <th>7</th>
-                <th>8</th>
-                <th>9</th>
-                <th>10</th>
-                <th>11</th>
-                <th>12</th>
-                <th>13</th>
-                <th>14</th>
-                <th>15</th>
-                <th>total</th>
-                
-            </tr>
+    <table class="table table-fluid table-hover table-responsive" id ="myTable">
+        <thead>           
         </thead> 
         <tbody id="dataTable">
                 <tr>
@@ -67,64 +53,106 @@
                     <td><input type="text" class='txtCal14'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
                     <td><input type="text" class='txtCal15'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
                     
+                    
                 </tr> 
                 </tbody>                
             <tfoot> 
                 <tr>
                     <td></td>
-                    <td><span><b>TOTAL  :</b></span></td>        
-                    <td><input class='txtCal' /><span id="total_sum_value1" ></span></td>           
-                   
-                    <td style="text-align:center"><b><span id="total_sum_value2" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value3" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value4" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value5" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value6" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value7" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value8" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value9" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value10" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value11" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value12" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value13" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value14" class='txtCal'></span></b></td>
-                    <td style="text-align:center"><b><span id="total_sum_value15" class='txtCal'></span></b></td>
-                     
+                    <td><span><b>TOTAL  :</b></span></td>                            
+                    <td><input type="text" class='' id="total_sum_value1" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value2" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value3" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value4" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value5" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value6" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value7" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value8" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value9" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value10" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value11" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value12" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value13" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value14" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                    <td><input type="text" class='' id="total_sum_value15" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>  
+                    <td><span id="total_sum_value16"></span></td>                                                                              
                 </tr>  
-                <tr>
-                <td style="text-align:center"><b><span id="total_sum_value"></span></b></td> 
-                </tr>
+                
                 <tr>
                     <td><input type="button" value="Add Row" onclick="addRow('dataTable')" /></td>
                     <td><input type="button" value="Delete Row" onclick="deleteRow('dataTable')" /></td> 
                 </tr> 
+                <tr>
+
+                    <div id="array1"></div>
+                   
+
+                </tr> 
             </tfoot>                  
             </table>
    
+        </div>
 
-     
-<div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+    @include('partials._footer')
+    <!-- /footer content -->
+
+
+
+
+@include('partials._notification')
+@stack('scripts')
+
 <script language="javascript">
 
-$(document).ready(function(){
+var date1 = new Date();
+var date2 = new Date();
+var array = [];
+    
+var getDateArray = function(start, end) {
+    var arr = new Array();
+    var dt = new Date(start);
+    while (dt <= end) {
+        arr.push(new Date(dt));
+        dt.setDate(dt.getDate() + 1);
+    }    
+    return arr;  
+     
+}
 
-$("#myTable").on('span','.txtCal', function(){
+var getDateRange = function(dateArr){
+    var header = [];
+    var table = document.getElementById("myTable").getElementsByTagName("thead")[0];
+    var newTr = table.insertRow(-1);
+    for (i=-2;i<dateArr.length;i++){  
+        dateArr[-1]="";
+        dateArr[-2]="";
+      newTr.insertCell(-1).appendChild(document.createTextNode(dateArr[i]));
+     
+    }
+}
 
-var calculated_total_sum = 0;
-
-$("#myTable .txtCal").each(function () {
-       var get_value = $(this).val();
-       if ($.isNumeric(get_value)) {
-          calculated_total_sum += parseFloat(get_value);
-          }                  
-    });
-
-    $("#total_sum_value").html(calculated_total_sum); 
-
+$(document).ready(function(){   
+    $( "#datepicker1" ).datepicker({         
+        onClose: function() {    
+            var startdate = $('#datepicker1').datepicker('getDate');
+            var enddate = $('#datepicker1').datepicker('getDate');
+            enddate.setDate(enddate.getDate()+14)
+            $( "#datepicker2" ).datepicker("setDate", enddate);             
+            var dateArr = getDateArray(startdate, enddate);   
+            getDateRange(dateArr);       
+        }       
+    });   
+    $( "#datepicker2" ).datepicker();    
 });
 
 
-	
+
+ $(document).ready(function(){  
 $("#myTable").on('input', function () {
        var calculated_total_sum1 = 0;
        var calculated_total_sum2 = 0;
@@ -141,7 +169,10 @@ $("#myTable").on('input', function () {
        var calculated_total_sum13 = 0;
        var calculated_total_sum14 = 0;
        var calculated_total_sum15 = 0;
-     
+
+       var calculated_total_sum16 = 0;
+          
+
         $("#myTable .txtCal1").each(function () {
            var get_textbox_value = $(this).val();
            if ($.isNumeric(get_textbox_value)) {
@@ -235,26 +266,33 @@ $("#myTable").on('input', function () {
               }                  
         });
 
-              $("#total_sum_value1").html(calculated_total_sum1);
-              $("#total_sum_value2").html(calculated_total_sum2);
-              $("#total_sum_value3").html(calculated_total_sum3);
-              $("#total_sum_value4").html(calculated_total_sum4);
-              $("#total_sum_value5").html(calculated_total_sum5);
-              $("#total_sum_value6").html(calculated_total_sum6);
-              $("#total_sum_value7").html(calculated_total_sum7);
-              $("#total_sum_value8").html(calculated_total_sum8);
-              $("#total_sum_value9").html(calculated_total_sum9);
-              $("#total_sum_value10").html(calculated_total_sum10);
-              $("#total_sum_value11").html(calculated_total_sum11);
-              $("#total_sum_value12").html(calculated_total_sum12);
-              $("#total_sum_value13").html(calculated_total_sum13);
-              $("#total_sum_value14").html(calculated_total_sum14);
-              $("#total_sum_value15").html(calculated_total_sum15);             
-
+        
+              $('#total_sum_value1').val(calculated_total_sum1);            
+              $("#total_sum_value2").val(calculated_total_sum2);
+              $("#total_sum_value3").val(calculated_total_sum3);
+              $("#total_sum_value4").val(calculated_total_sum4);
+              $("#total_sum_value5").val(calculated_total_sum5);
+              $("#total_sum_value6").val(calculated_total_sum6);
+              $("#total_sum_value7").val(calculated_total_sum7);
+              $("#total_sum_value8").val(calculated_total_sum8);
+              $("#total_sum_value9").val(calculated_total_sum9);
+              $("#total_sum_value10").val(calculated_total_sum10);
+              $("#total_sum_value11").val(calculated_total_sum11);
+              $("#total_sum_value12").val(calculated_total_sum12);
+              $("#total_sum_value13").val(calculated_total_sum13);
+              $("#total_sum_value14").val(calculated_total_sum14);
+              $("#total_sum_value15").val(calculated_total_sum15); 
+              
+              calculated_total_sum16 = calculated_total_sum1 + calculated_total_sum2 + calculated_total_sum3 + calculated_total_sum4 + calculated_total_sum5 + calculated_total_sum6 + calculated_total_sum7 +calculated_total_sum8 + calculated_total_sum9 + calculated_total_sum10 + calculated_total_sum11 + calculated_total_sum12 + calculated_total_sum13 + calculated_total_sum14 + calculated_total_sum15;
+              $("#total_sum_value16").html(calculated_total_sum16);
+       
+              
+              
        });
+       
    
 });
-
+ 
     function addRow(tableID) {
 
         var table = document.getElementById(tableID);
@@ -309,19 +347,8 @@ $("#myTable").on('input', function () {
         }
     }
 
- /*  $('table input').on('input', function() {
-        var $tr = $(this).closest('tr'); // get tr which contains the input
-        var tot = 0; // variable to store sum
-        $('input:not(:last)', $tr).each(function() { // iterate over inputs except last
-            tot += Number($(this).val()) || 0; // parse and add value, if NaN then add 0
-        });
-        $('td:last input', $tr).val(tot); // update input in last column
-    }).trigger('input'); // trigger input to set initial value in column 
- */
-
-
 
 </script>
 
-
-@endsection
+</body>
+</html>
