@@ -4,6 +4,8 @@ namespace App\Admin;
 use DB;
 use App\User;
 use App\Role;
+use App\Admin\Project;
+use App\Admin\Employee;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,10 +20,15 @@ class Vendor extends Model
     public function employee()
     {
         return $this
-            ->hasMany('App\Admin\Employee', 'id')
+            ->hasMany('App\Admin\Employee')
             ->withTimestamps();
     }
 
+    public function projects()
+        {
+            return $this->belongsToMany('App\Admin\Project')
+            ->withTimestamps();
+        }
 
     public function saveVendor($data)
     {

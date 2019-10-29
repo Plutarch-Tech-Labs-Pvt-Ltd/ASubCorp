@@ -114,4 +114,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/timesheets', 'TimesheetsController@index');
 
-    Route::get('/create/timesheet','TimesheetsController@create');
+    Route::get('/create/timesheet/{id}','TimesheetsController@create')->name('create_timesheet');

@@ -67,6 +67,7 @@ class EmployeesController extends Controller
         
         
         $employee->saveEmployee($data);
+        return redirect('/employees')->with('success', 'New Employee has been created!');
         
         // $fileName = "contract_agreement.pdf";
         // $request->file('contract-agreement')->getClientOriginalExtension();
@@ -75,7 +76,7 @@ class EmployeesController extends Controller
         //     base_path() . '/public/uploads', $fileName
         // );
         
-        return redirect('/employees')->with('success', 'New Employee has been created!');
+        
     }
     
     public function role_user() {

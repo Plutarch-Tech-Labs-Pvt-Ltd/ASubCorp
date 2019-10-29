@@ -5,21 +5,29 @@ namespace App\Admin;
 use DB;
 use App\User;
 use App\Role;
+use App\Admin\Project;
+use App\Admin\Vendor;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
     protected $table = "employee";
-        protected $fillable = [ 'user_id','vendor_id', 'phone', 'employee_type', 'project_id', 'contract_agreement', 'regular_hour', 'rate_per_hour','net_payment_terms' ];
+        protected $fillable = [ 'user_id', 'phone', 'employee_type', 'contract_agreement', 'regular_hour', 'rate_per_hour','net_payment_terms' ];
 
 
         public function vendors()
-    {
-        return $this
-            ->belongsToMany('App\Admin\Vendor')
+        {
+            return $this
+                ->belongsToMany('App\Admin\Vendor')
+                ->withTimestamps();
+        }
+
+        public function projects()
+        {
+            return $this->belongsToMany('App\Admin\Project')
             ->withTimestamps();
-    }
+        }
 
         public function saveEmployee($data)
         {
@@ -41,15 +49,24 @@ class Employee extends Model
                 ));
                 
                 $employeedata = DB::table('employees')->insert(array(
-                    'user_id'      => $userID,
-                    'vendor_id'      => $data['vendor-id'],
+                    'user_id'      => $userID,                   
                     'phone'  =>$data['employee-phone'],
-                    'employee_type'      => $data['employee-type'],
-                    'project_id'      => $data['project-id'],                    
+                    'employee_type'      => $data['employee-type'],                                        
                     'contract_agreement'      => $data['contract-agreement'],
                     'regular_hour'      => $data['employee-regular-hour'],
                     'rate_per_hour'      => $data['employee-rate-per-hour'],                    
                     'net_payment_terms'      => $data['vendor-net-payment']
+                ));
+
+                $employeedata = DB::table('employees_projects')->insert(array(    
+                    'employees_id'      => $userID,                  
+                    'project_id'      => $data['project-id']
+                    
+                ));
+
+                $employeedata = DB::table('employees_vendors')->insert(array(    
+                    'employees_id'      => $userID,                   
+                     'vendor_id'      => $data['vendor-id'],                   
                 ));
                 
                 return 1;

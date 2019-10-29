@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use App\User;
+use App\Role;
+use App\Timesheet;
+use App\Vendor;
+use App\Admin\Employee;
 
 class TimesheetsController extends Controller
 {
@@ -21,9 +27,20 @@ class TimesheetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('employee.timesheets');
+        $users = DB::table('users')->get();
+        $vendors = DB::table('vendor')->get();       
+                     
+           
+         $projects = DB::table('projects')
+        ->join('employees_projects', 'projects.id', '=', 'employees_projects.project_id')
+        ->join('employees', 'employees_projects.employees_id', '=', 'employees.user_id')  
+        ->where('employees_projects.employees_id', '=', $id)  
+        ->get();
+            
+       
+        return view('employee.timesheets')->with('users', $users)->with('vendors', $vendors)->with('projects', $projects);
     }
 
     /**
@@ -34,7 +51,23 @@ class TimesheetsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $timesheet = new Timesheet();
+        
+        
+        $data = $this->validate($request, [
+            'user_id'=>'required',
+            'vendor_id'=> 'required',
+            'project_id'=> 'required',
+            'from_date'=> 'required',
+            'to_date'=> 'required',
+            'worked_hours_15'=> 'required',
+            'leave_hours'=> 'required',
+            'leave_description'=> 'required'
+            ]);
+        
+        
+        $timesheet->saveTimesheet($data);
+        return redirect('/employees')->with('success', 'New Employee has been created!');
     }
 
     /**

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 use App\User;
 use App\Role;
+use App\Admin\Employee;
 
 class EmployeeController extends Controller
 {
@@ -41,8 +43,25 @@ class EmployeeController extends Controller
         
         $projectLists = DB::table('projects')->get();
         $projectCount = count($projectLists);
-            
-        return view('employee.dashboard')->with('vendorCounter', $vendorCounts)->with('employeeCounter', $employeeCount)->with('projectCounter', $projectCount);
+
+       $employeetype = DB::table('employees')
+       ->leftJoin('users', function($join){
+           $join->on('users.id', '=', 'employees.user_id');
+       })->where('employee_type', ' W2')
+       ->get();
+
+       if(Auth::user()->employee_type = $employeetype){
+
+       return view('employee.dashboard')->with('vendorCounter', $vendorCounts)->with('employeeCounter', $employeeCount)->with('projectCounter', $projectCount);
+    }else{
+        return view('home')->with('vendorCounter', $vendorCounts)->with('employeeCounter', $employeeCount)->with('projectCounter', $projectCount);
+    }
+      /*  if ($employeetype->employee_type = "w2") {
+        return view('home')->with('vendorCounter', $vendorCounts)->with('employeeCounter', $employeeCount)->with('projectCounter', $projectCount);
+       }
+       elseif(Auth::user()->employee_type = "C2C"){
+        return view('home')->with('vendorCounter', $vendorCounts)->with('employeeCounter', $employeeCount)->with('projectCounter', $projectCount);
+       } */
     }
     /**
      * Show the form for creating a new resource.

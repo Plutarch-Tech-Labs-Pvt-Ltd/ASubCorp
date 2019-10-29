@@ -26,17 +26,17 @@ class LoginController extends Controller
      * @var string
      */
   /*   protected $redirectTo = '/home'; */
-  protected function authenticated($request, $user){
-    if($user->hasRole('admin')){
-        return redirect('/admin');
+    protected function authenticated($request, $user){
+        if($user->hasRole('admin')){
+            return redirect('/admin');
+        }
+        elseif($user->hasRole('vendor')){
+            return redirect('/vendor');
+        }
+        elseif($user->hasRole('employee')){            
+            return redirect('/employee');
+        }
     }
-    elseif($user->hasRole('vendor')){
-        return redirect('/vendor');
-    }
-    elseif($user->hasRole('employee')){
-        return redirect('/employee');
-    }
-}
 
     /**
      * Create a new controller instance.
