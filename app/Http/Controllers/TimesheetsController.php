@@ -8,10 +8,15 @@ use App\User;
 use App\Role;
 use App\Timesheet;
 use App\Vendor;
+use APP\EmployeeTimesheet;
 use App\Admin\Employee;
+
 
 class TimesheetsController extends Controller
 {
+
+   
+    
     /**
      * Display a listing of the resource.
      *
@@ -30,10 +35,12 @@ class TimesheetsController extends Controller
     public function create($id)
     {
         $users = DB::table('users')->get();
-        $vendors = DB::table('vendor')->get();       
+        $vendors = DB::table('vendor')->get();
+        
+        
                      
            
-         $projects = DB::table('projects')
+        $projects = DB::table('projects')
         ->join('employees_projects', 'projects.id', '=', 'employees_projects.project_id')
         ->join('employees', 'employees_projects.employees_id', '=', 'employees.user_id')  
         ->where('employees_projects.employees_id', '=', $id)  
@@ -49,25 +56,45 @@ class TimesheetsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
+
+
+      /*   $device = new Device();
+ 
+        $device->name = request('name');
+        $device->description = request('description');
+ 
+        $device->save(); 
+        $projects = new EmployeeTimesheet();         
+        $projects->employees_id = $id;                 
+        $projects->project_id =  request('project-id');
+        $projects->save();   */
+
         $timesheet = new Timesheet();
+        $timesheet->employees_id = $id;
+        $timesheet->project_id = request('project-id');  
+        $timesheet->start_date = request('from-date'); 
+        $timesheet->end_date = request('to-date'); 
+        $timesheet->worked_hours = request('worked-hours'); 
+        $timesheet->leave_hours = request('leave-hours'); 
+        $timesheet->holiday_hours = request('holiday-hours'); 
+        $timesheet->submit = 'submitted';      
+        $timesheet->save();  
         
+        $timesheet_id = $timesheet->id;
+
+        DB::table('timesheet_project')->insert(
+            ['timesheet_id' => $timesheet_id, 'project_id' => request('project-id')]
+        );
+
+        $vendors = DB::table('vendor')->get();
+
+        DB::table('employee_vendor_timesheet')->insert(
+            ['employees_id' =>$id, 'vendor_id' => request('project-id'),'timesheet_id' => $timesheet_id]
+        );
         
-        $data = $this->validate($request, [
-            'user_id'=>'required',
-            'vendor_id'=> 'required',
-            'project_id'=> 'required',
-            'from_date'=> 'required',
-            'to_date'=> 'required',
-            'worked_hours_15'=> 'required',
-            'leave_hours'=> 'required',
-            'leave_description'=> 'required'
-            ]);
-        
-        
-        $timesheet->saveTimesheet($data);
-        return redirect('/employees')->with('success', 'New Employee has been created!');
+        return redirect("/alltimesheets/$id")->with('success', 'Timesheet created!!');
     }
 
     /**
@@ -113,5 +140,35 @@ class TimesheetsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function alltimesheets($id)
+    {
+         //$vendors = DB::table('users')->get();
+         
+         //$timesheets = DB::table('timesheets1')->get();  
+         $timesheets = DB::table('timesheets1')       
+        ->where('employees_id', '=', $id)  
+        ->get();
+               
+        return view('employee.all_timesheets',compact('timesheets'));
+    }
+
+    public function viewtimesheet($id)
+    {
+        $timesheets = DB::table('timesheets1')       
+        ->where('id', '=', $id)  
+        ->get();
+
+       
+        $projects = DB::table('projects')
+        ->join('timesheet_project', 'projects.id', '=', 'timesheet_project.project_id')
+        ->join('timesheets1', 'timesheet_project.timesheet_id', '=','timesheets1.id' )  
+        ->where('timesheet_project.timesheet_id', '=', $id)  
+        ->get();
+
+      
+               
+        return view('employee.timesheet_details')->with('timesheets', $timesheets)->with('projects', $projects);
     }
 }

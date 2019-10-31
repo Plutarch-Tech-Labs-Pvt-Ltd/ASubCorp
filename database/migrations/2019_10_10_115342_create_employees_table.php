@@ -23,7 +23,8 @@ class CreateEmployeesTable extends Migration
             $table->integer('regular_hour');
             $table->integer('rate_per_hour');
             $table->integer('net_payment_terms');
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

@@ -29,7 +29,7 @@
                     
                     <li><a><i class="fa fa-users"></i>Timesheets <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{url('/employees')}}">All Timesheets</a></li>
+                            <li><a href="{{url('/alltimesheets',auth()->user()->id)}}">All Timesheets</a></li>
                             <li><a href="{{route('create_timesheet',auth()->user()->id)}}">Create Timesheets</a></li>
                         </ul>   
                     </li>

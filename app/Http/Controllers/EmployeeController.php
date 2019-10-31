@@ -44,18 +44,10 @@ class EmployeeController extends Controller
         $projectLists = DB::table('projects')->get();
         $projectCount = count($projectLists);
 
-       $employeetype = DB::table('employees')
-       ->leftJoin('users', function($join){
-           $join->on('users.id', '=', 'employees.user_id');
-       })->where('employee_type', ' W2')
-       ->get();
-
-       if(Auth::user()->employee_type = $employeetype){
-
        return view('employee.dashboard')->with('vendorCounter', $vendorCounts)->with('employeeCounter', $employeeCount)->with('projectCounter', $projectCount);
-    }else{
-        return view('home')->with('vendorCounter', $vendorCounts)->with('employeeCounter', $employeeCount)->with('projectCounter', $projectCount);
-    }
+    
+        
+
       /*  if ($employeetype->employee_type = "w2") {
         return view('home')->with('vendorCounter', $vendorCounts)->with('employeeCounter', $employeeCount)->with('projectCounter', $projectCount);
        }

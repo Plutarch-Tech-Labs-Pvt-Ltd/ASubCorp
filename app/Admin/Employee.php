@@ -29,6 +29,12 @@ class Employee extends Model
             ->withTimestamps();
         }
 
+        public function timesheet()
+        {
+            return $this->belongsToMany('App\Timesheet')
+            ->withTimestamps();
+        }
+
         public function saveEmployee($data)
         {
                 // create user

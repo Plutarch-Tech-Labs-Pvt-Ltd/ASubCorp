@@ -13,122 +13,119 @@
         <div class="right_col" role="main" >
             <div class="page-title">
                 <div class="title_right">
-                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <div class="input-group">
-
-                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <img src="/images/img.jpg" alt="">{{auth()->user()->name}}
-                            <span class=" fa fa-angle-down"></span>
-                        </a>
-
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="clearfix"></div>
-            <div class="data-pjax">
-            <p>Start Date: <input type="text" id="datepicker1" name="start_date"></p>
-            <p>End Date: <input type="text" id="datepicker2" name="end_date"></p>            
+                <div class="data-pjax">
+                    <div style="padding-bottom:20px;">                       
+                        <a href="{{route('employee.dashboard')}}" style="color:#0000cc;">Dashboard > </a>
+                        <a href="{{url('/alltimesheets',auth()->user()->id)}}" style="color:#0000cc;">All Timesheets</a>
+                    </div>
+                <form method="post" action="{{url('create/timesheet',auth()->user()->id)}}" enctype="multipart/form-data">
+                {{csrf_field()}}
+                    <p>Start Date: <input type="text" id="datepicker1" name="from-date"></p>
+                    <p>End Date: <input type="text" id="datepicker2" name="to-date"></p>            
                         
-        <div class="container" style="overflow-x:auto;" >    
-            <table class="table table-fluid table-hover table-responsive" id ="myTable">
-                <thead>           
-                </thead> 
-                <tbody id="dataTable">
-                        <tr> 
-                                                  
-                            <td><select name = "value" style="background-color: white; font-size: 15px; width: 200px; height:32px; text-align: center;" >
-                            <option value="">Select Project</option>
-                                    @foreach($projects as $project)
-                                        <option value="{{$project->id}}">{{$project->project_name}}</option>
-                                    @endforeach
-                                </select></td>
-                            <td><input type="text" class='txtCal1'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal2'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal3' name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal4'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal5'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal6'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal7'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal8'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal9'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td> 
-                            <td><input type="text" class='txtCal10'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal11'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal12'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal13'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal14'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal15'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><span id="worked_hours"></span></td>
-                        </tr>
-                        <tr>
-                            
-                            <td><input type="text" value=" Leave" name = "value" style="background-color: white; font-size: 15px; width: 200px; height:32px;border:1px solid #ddd;" disabled></td>
-                            <td><input type="text" class='txtCal16'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal17'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal18' name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal19'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal20'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal21'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal22'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal23'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal24'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td> 
-                            <td><input type="text" class='txtCal25'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal26'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal27'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal28'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal29'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal30'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><span id="leave_hours"></span></td>
-                        </tr> 
-                        <tr>
-                        <td><input type="text" value=" Holiday" name = "value" style="background-color: white; font-size: 15px; width: 200px; height:32px;border:1px solid #ddd;" disabled ></td>
-                            <td><input type="text" class='txtCal31'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal32'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal33' name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal34'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal35'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal36'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal37'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal38'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal39'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td> 
-                            <td><input type="text" class='txtCal40'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal41'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal42'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal43'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal44'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><input type="text" class='txtCal45'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                            <td><span id="holiday_hours"></span></td>
-                        </tr> 
-                        </tbody>                
-                    <tfoot> 
-                        <tr>                           
-                            <td><span><b>TOTAL  :</b></span></td>                            
-                            <td><input type="text" class='' id="total_sum_value1" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value2" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value3" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value4" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value5" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value6" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value7" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value8" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value9" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value10" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value11" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value12" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value13" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value14" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
-                            <td><input type="text" class='' id="total_sum_value15" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>  
-                            <td><span id="total_sum_value16"></span></td>                                                                              
-                        </tr>            
-                    </tfoot>                  
-                </table>
+                    <div class="container" style="overflow-x:auto;" >    
+                        <table class="table table-fluid table-hover table-responsive" id ="myTable">
+                            <thead>           
+                            </thead> 
+                            <tbody id="dataTable">                
+                                    <tr>                                                   
+                                        <td><select name = "project-id" style="background-color: white; font-size: 15px; width: 200px; height:32px; text-align: center;" >
+                                        <option value="">Select Project</option>
+                                                @foreach($projects as $project)
+                                                    <option value="{{$project->id}}">{{$project->project_name}}</option>
+                                                @endforeach
+                                            </select></td>
+                                        <td><input type="text" class='txtCal1'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal2'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal3' name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal4'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal5'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal6'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal7'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal8'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal9'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td> 
+                                        <td><input type="text" class='txtCal10'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal11'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal12'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal13'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal14'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal15'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="worked_hours" name="worked-hours" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                    <!-- <td><span id="worked_hours"><input type="hidden" id="worked_hours_db" name="worked-hours"></span></td> -->
+                                    </tr>
+                                    <tr>
+                                        
+                                        <td><input type="text" value=" Leave" name = "value" style="background-color: white; font-size: 15px; width: 200px; height:32px;border:1px solid #ddd;" disabled></td>
+                                        <td><input type="text" class='txtCal16'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal17'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal18' name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal19'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal20'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal21'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal22'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal23'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal24'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td> 
+                                        <td><input type="text" class='txtCal25'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal26'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal27'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal28'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal29'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal30'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="leave_hours" name="leave-hours" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        
+                                    </tr> 
+                                    <tr>
+                                    <td><input type="text" value=" Holiday" name = "value" style="background-color: white; font-size: 15px; width: 200px; height:32px;border:1px solid #ddd;" disabled ></td>
+                                        <td><input type="text" class='txtCal31'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal32'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal33' name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal34'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal35'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal36'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal37'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal38'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal39'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td> 
+                                        <td><input type="text" class='txtCal40'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal41'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal42'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal43'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal44'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal45'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="holiday_hours" name="holiday-hours" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                    </tr> 
+                                    </tbody>                
+                                <tfoot> 
+                                    <tr>                           
+                                        <td><span><b>TOTAL  :</b></span></td>                            
+                                        <td><input type="text" class='' id="total_sum_value1" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value2" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value3" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value4" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value5" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value6" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value7" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value8" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value9" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value10" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value11" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value12" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value13" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value14" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
+                                        <td><input type="text" class='' id="total_sum_value15" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>  
+                                        <td><span id="total_sum_value16"><input type="hidden" id="total_sum_value16" name="total-sum"></span></td>                                                                              
+                                    </tr>            
+                                </tfoot>                  
+                            </table>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
-    </div>
         <!-- /page content -->
 
         <!-- footer content -->
@@ -180,26 +177,26 @@ var getDateRange = function(dateArr){
 $(document).ready(function(){   
     var daterange= [];
     $( "#datepicker1" ).datepicker({         
-          
+        dateFormat: 'yy-mm-dd',
         onClose: function() {    
                      
             // startdate = new date();            
             
             var  startdate =  $('#datepicker1').datepicker('getDate'); 
-                  
+               
             var enddate = $('#datepicker1').datepicker('getDate');
             
             enddate.setDate(enddate.getDate()+14)
             $( "#datepicker2" ).datepicker("setDate", enddate); 
-            var st = startdate.toDateString();
-            var en = enddate.toDateString();                   
+                         
             var dateArr = getDateArray(startdate, enddate);             
             daterange = getDateRange(dateArr);            
         }   
           
     });   
+     
     $( "#datepicker2" ).datepicker();    
-    $('#datearray').val(daterange);  
+    $( "#datepicker2" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );   
 });
 
 
@@ -315,7 +312,7 @@ $("#myTable").on('input', function () {
               calculated_total_sum14 += parseFloat(get_textbox_value);
               }                  
         });
-        $("#myTable .txtCal15, #myTable .txtCal29, #myTable .txtCal45").each(function () {
+        $("#myTable .txtCal15, #myTable .txtCal30, #myTable .txtCal45").each(function () {
            var get_textbox_value = $(this).val();
            if ($.isNumeric(get_textbox_value)) {
               calculated_total_sum15 += parseFloat(get_textbox_value);
@@ -329,7 +326,7 @@ $("#myTable").on('input', function () {
               }                  
         });
 
-        $("#myTable .txtCal16, #myTable .txtCal17, #myTable .txtCal18, #myTable .txtCal19,#myTable .txtCal20, #myTable .txtCal21, #myTable .txtCal22, #myTable .txtCal23, #myTable .txtCal24, #myTable .txtCal25, #myTable .txtCal26, #myTable .txtCal27, #myTable .txtCal28, #myTable .txtCal29, #myTable .txtCal30").each(function () {
+        $("#myTable .txtCal16, #myTable .txtCal17, #myTable .txtCal18, #myTable .txtCal19, #myTable .txtCal20, #myTable .txtCal21, #myTable .txtCal22, #myTable .txtCal23, #myTable .txtCal24, #myTable .txtCal25, #myTable .txtCal26, #myTable .txtCal27, #myTable .txtCal28, #myTable .txtCal29, #myTable .txtCal30").each(function () {
            var get_textbox_value = $(this).val();
            if ($.isNumeric(get_textbox_value)) {
                 leave_hours += parseFloat(get_textbox_value);
@@ -360,10 +357,17 @@ $("#myTable").on('input', function () {
               $("#total_sum_value14").val(calculated_total_sum14);
               $("#total_sum_value15").val(calculated_total_sum15); 
 
-              $("#worked_hours").html(worked_hours); 
-              $("#leave_hours").html(leave_hours); 
-              $("#holiday_hours").html(holiday_hours); 
+              $("#worked_hours").val(worked_hours); 
+              $("#leave_hours").val(leave_hours); 
+              $("#holiday_hours").val(holiday_hours);
+
+              //$("#worked_hours1").val(worked_hours); 
+              //$("#leave_hours1").val(leave_hours); 
+              //$("#holiday_hours1").val(holiday_hours); 
               
+              
+              document.getElementById("worked_hours_db").value = worked_hours;
+
               calculated_total_sum16 = calculated_total_sum1 + calculated_total_sum2 + calculated_total_sum3 + calculated_total_sum4 + calculated_total_sum5 + calculated_total_sum6 + calculated_total_sum7 +calculated_total_sum8 + calculated_total_sum9 + calculated_total_sum10 + calculated_total_sum11 + calculated_total_sum12 + calculated_total_sum13 + calculated_total_sum14 + calculated_total_sum15;
               $("#total_sum_value16").html(calculated_total_sum16);
        
@@ -374,59 +378,9 @@ $("#myTable").on('input', function () {
    
 });
  
-    function addRow(tableID) {
+    
 
-        var table = document.getElementById(tableID);
-
-        var rowCount = table.rows.length;
-        var row = table.insertRow(rowCount);
-
-        var colCount = table.rows[0].cells.length;
-
-        for(var i=0; i<colCount; i++) {
-
-            var newcell	= row.insertCell(i);
-
-            newcell.innerHTML = table.rows[0].cells[i].innerHTML;
-            //alert(newcell.childNodes);
-            switch(newcell.childNodes[0].type) {
-                case "text":
-                        newcell.childNodes[0].value = "";
-                        break;
-                case "checkbox":
-                        newcell.childNodes[0].checked = false;
-                        break;
-                case "select-one":
-                        newcell.childNodes[0].selectedIndex = 0;
-                        break;
-            }
-        }
-    }
-
-    function deleteRow(tableID) {
-        try {
-        var table = document.getElementById(tableID);
-        var rowCount = table.rows.length;
-
-        for(var i=0; i<rowCount; i++) {
-            var row = table.rows[i];
-            var chkbox = row.cells[0].childNodes[0];
-            if(null != chkbox && true == chkbox.checked) {
-                if(rowCount <= 1) {
-                    alert("Cannot delete all the rows.");
-                    break;
-                }
-                table.deleteRow(i);
-                rowCount--;
-                i--;
-            }
-
-
-        }
-        }catch(e) {
-            alert(e);
-        }
-    }
+    
 
 
 </script>

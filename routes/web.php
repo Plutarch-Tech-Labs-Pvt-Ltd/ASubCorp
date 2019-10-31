@@ -115,3 +115,9 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/timesheets', 'TimesheetsController@index');
 
     Route::get('/create/timesheet/{id}','TimesheetsController@create')->name('create_timesheet');
+
+    Route::post('/create/timesheet/{id}','TimesheetsController@store');
+
+    Route::get('/alltimesheets/{id}', 'TimesheetsController@alltimesheets');
+
+    Route::get('/timesheets/details/{id}', 'TimesheetsController@viewtimesheet')->name('timesheet_details');
