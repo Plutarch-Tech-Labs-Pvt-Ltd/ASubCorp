@@ -16,7 +16,9 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');           
+            $table->foreign('user_id')->references('id')->on('users');   
+            $table->integer('vendor_id')->unsigned();
+            $table->foreign('vendor_id')->references('user_id')->on('vendor');           
             $table->string('phone');
             $table->string('employee_type');            
             $table->string('contract_agreement');

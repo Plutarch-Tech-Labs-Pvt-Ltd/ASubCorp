@@ -17,6 +17,8 @@ class CreateTableTimesheets1 extends Migration
             $table->increments('id')->unsigned();   
             $table->integer('employees_id')->unsigned();
             $table->foreign('employees_id')->references('user_id')->on('employees')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('vendor_id')->unsigned();
+            $table->foreign('vendor_id')->references('user_id')->on('vendor'); 
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects')->onUpdate('cascade')->onDelete('cascade');                 
             $table->date("start_date");

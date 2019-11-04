@@ -35,9 +35,8 @@ class TimesheetsController extends Controller
     public function create($id)
     {
         $users = DB::table('users')->get();
-        $vendors = DB::table('vendor')->get();
-        
-        
+         
+        //$vendors = DB::table('vendor')->get();
                      
            
         $projects = DB::table('projects')
@@ -45,8 +44,15 @@ class TimesheetsController extends Controller
         ->join('employees', 'employees_projects.employees_id', '=', 'employees.user_id')  
         ->where('employees_projects.employees_id', '=', $id)  
         ->get();
-            
-       
+
+        $vendors = DB::table('vendor')
+        ->join('employees_vendors', 'vendor.user_id', '=', 'employees_vendors.vendor_id')
+        ->join('employees', 'employees_vendors.employees_id', '=', 'employees.user_id')
+        ->select('employees.vendor_id')  
+        ->where('employees_vendors.employees_id', '=', $id)  
+        ->get();       
+
+ 
         return view('employee.timesheets')->with('users', $users)->with('vendors', $vendors)->with('projects', $projects);
     }
 
@@ -73,13 +79,14 @@ class TimesheetsController extends Controller
 
         $timesheet = new Timesheet();
         $timesheet->employees_id = $id;
+        $timesheet->vendor_id = request('vendor-id');
         $timesheet->project_id = request('project-id');  
         $timesheet->start_date = request('from-date'); 
         $timesheet->end_date = request('to-date'); 
         $timesheet->worked_hours = request('worked-hours'); 
         $timesheet->leave_hours = request('leave-hours'); 
         $timesheet->holiday_hours = request('holiday-hours'); 
-        $timesheet->submit = 'submitted';      
+        $timesheet->status = 'submitted';      
         $timesheet->save();  
         
         $timesheet_id = $timesheet->id;
@@ -88,11 +95,6 @@ class TimesheetsController extends Controller
             ['timesheet_id' => $timesheet_id, 'project_id' => request('project-id')]
         );
 
-        $vendors = DB::table('vendor')->get();
-
-        DB::table('employee_vendor_timesheet')->insert(
-            ['employees_id' =>$id, 'vendor_id' => request('project-id'),'timesheet_id' => $timesheet_id]
-        );
         
         return redirect("/alltimesheets/$id")->with('success', 'Timesheet created!!');
     }
@@ -167,8 +169,16 @@ class TimesheetsController extends Controller
         ->where('timesheet_project.timesheet_id', '=', $id)  
         ->get();
 
+        $users = DB::table('timesheets1')->where('id', $id)->pluck('vendor_id');  
+       
+
+    
+         $vendors = DB::table('users')
+            ->leftJoin('timesheets1', 'users.id', '=', 'timesheets1.vendor_id')
+            ->where('users.id', '=', $users)
+            ->get(); 
       
                
-        return view('employee.timesheet_details')->with('timesheets', $timesheets)->with('projects', $projects);
+        return view('employee.timesheet_details')->with('timesheets', $timesheets)->with('projects', $projects)->with('vendors', $vendors);
     }
 }

@@ -25,7 +25,11 @@
                 <form method="post" action="{{url('create/timesheet',auth()->user()->id)}}" enctype="multipart/form-data">
                 {{csrf_field()}}
                     <p>Start Date: <input type="text" id="datepicker1" name="from-date"></p>
-                    <p>End Date: <input type="text" id="datepicker2" name="to-date"></p>            
+                    <p>End Date: <input type="text" id="datepicker2" name="to-date"></p>   
+
+                     @foreach($vendors as $vendor)
+                        <input type="hidden" value="{{$vendor->vendor_id}}" name="vendor-id">
+                    @endforeach      
                         
                     <div class="container" style="overflow-x:auto;" >    
                         <table class="table table-fluid table-hover table-responsive" id ="myTable">
@@ -62,7 +66,7 @@
                                         <td><input type="text" value=" Leave" name = "value" style="background-color: white; font-size: 15px; width: 200px; height:32px;border:1px solid #ddd;" disabled></td>
                                         <td><input type="text" class='txtCal16'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
                                         <td><input type="text" class='txtCal17'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
-                                        <td><input type="text" class='txtCal18' name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
+                                        <td><input type="text" class='txtCal18'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
                                         <td><input type="text" class='txtCal19'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
                                         <td><input type="text" class='txtCal20'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
                                         <td><input type="text" class='txtCal21'  name="" style="background-color: white; font-size: 18px; width: 70px; text-align: center;"/></td>
@@ -116,7 +120,7 @@
                                         <td><input type="text" class='' id="total_sum_value13" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
                                         <td><input type="text" class='' id="total_sum_value14" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>
                                         <td><input type="text" class='' id="total_sum_value15" name="" style="background-color: #fff; border:none; margin:0px; text-align: center;"/></td>  
-                                        <td><span id="total_sum_value16"><input type="hidden" id="total_sum_value16" name="total-sum"></span></td>                                                                              
+                                        <td><span id="total_sum_value16"></span></td>                                                                              
                                     </tr>            
                                 </tfoot>                  
                             </table>

@@ -5,7 +5,9 @@
         <div class="row" style="padding:10px 10px;">
             <div class="col-sm-4">                
                 <label>Vendor : </label>
-                <input type="text" value = " employee-name" disabled/>
+                @foreach($vendors as $vendor)
+                <input type="text" value = " {{$vendor->name}}" disabled/>
+                @endforeach
             </div>
            
             <div class="col-sm-4">

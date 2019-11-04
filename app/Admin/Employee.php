@@ -22,6 +22,12 @@ class Employee extends Model
                 ->belongsToMany('App\Admin\Vendor')
                 ->withTimestamps();
         }
+        public function users()
+        {
+            return $this
+                ->belongsToMany('App\User')
+                ->withTimestamps();
+        }
 
         public function projects()
         {
@@ -55,13 +61,16 @@ class Employee extends Model
                 ));
                 
                 $employeedata = DB::table('employees')->insert(array(
-                    'user_id'      => $userID,                   
+                    'user_id'      => $userID,     
+                    'vendor_id'      => $data['vendor-id'],              
                     'phone'  =>$data['employee-phone'],
                     'employee_type'      => $data['employee-type'],                                        
                     'contract_agreement'      => $data['contract-agreement'],
                     'regular_hour'      => $data['employee-regular-hour'],
                     'rate_per_hour'      => $data['employee-rate-per-hour'],                    
-                    'net_payment_terms'      => $data['vendor-net-payment']
+                    'net_payment_terms'      => $data['vendor-net-payment'],
+                    'created_at'  => now(),
+                    'updated_at'  => now()
                 ));
 
                 $employeedata = DB::table('employees_projects')->insert(array(    
