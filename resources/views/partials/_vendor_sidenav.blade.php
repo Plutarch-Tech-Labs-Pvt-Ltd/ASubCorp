@@ -24,6 +24,8 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
                 <h3>General</h3>
+                
+
                 <ul class="nav side-menu">
                     
                     
@@ -31,8 +33,8 @@
                     
                     <li><a><i class="fa fa-users"></i>Employee <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{url('/employees')}}">All Employees</a></li>
-                            <li><a href="{{url('/create/employee')}}">Create Employee</a></li>
+                            <li><a href="{{url('/vendor/employees',auth()->user()->id)}}">All Employees</a></li>
+                            <li><a href="{{url('/vendor/create/employee')}}">Create Employee</a></li>
                         </ul>
                     </li>
                     
@@ -42,14 +44,9 @@
                             <li><a href="{{url('/create/project')}}">Create Project</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-list"></i>Timesheets  <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="">All Timesheets</a></li>
-                            <li><a href="">Create Timesheets</a></li>
-                        </ul>
-                    </li>
-                   
+                    
                 </ul>
+
             </div>
 
         </div>

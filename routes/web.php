@@ -102,6 +102,23 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/vendor', 'VendorController@index')->name('vendor.dashboard');
 
 
+    /****************** EMPLOYEES ROUTE *****************/
+
+    Route::get('/vendor/employees/{id}', 'Vendor\EmployeesController@index')->name('vendor.employees');
+
+    Route::get('/vendor/alltimesheets/{id}', 'Vendor\EmployeesController@alltimesheets')->name('vendor.employees.alltimesheets');
+
+    Route::get('/vendor/timesheetdetails/{id}', 'Vendor\EmployeesController@timesheetdetails')->name('vendor.timesheet_details');
+
+    Route::get('/vendor/create/employee','Vendor\EmployeesController@create');
+
+    Route::post('/vendor/create/employee/{id}','Vendor\EmployeesController@store');
+
+    Route::post('/vendor/timesheet/approve/{id}/{vid}','Vendor\EmployeesController@approve');
+   
+
+   
+
     /*
     |--------------------------------------------------------------------------
     | Employee Dashboard

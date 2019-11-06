@@ -82,7 +82,7 @@ class Employee extends Model
                 $employeedata = DB::table('employees_vendors')->insert(array(    
                     'employees_id'      => $userID,                   
                      'vendor_id'      => $data['vendor-id'],                   
-                ));
+                ));              
                 
                 return 1;
         }
