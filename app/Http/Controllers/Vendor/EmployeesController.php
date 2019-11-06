@@ -141,9 +141,6 @@ class EmployeesController extends Controller
             ->where('timesheet_project.timesheet_id', '=', $id)  
             ->get();
     
-            
-          
-
             $employees = DB::table('users')
                 ->join('employee_timesheet', 'users.id', '=', 'employee_timesheet.employees_id')
                 ->where('employee_timesheet.timesheet_id', '=', $id)
@@ -153,15 +150,68 @@ class EmployeesController extends Controller
             return view('vendor.employees.timesheet_details')->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects);
         }
 
-    public function approve($id,$eid)
+    public function approve($id)
     {
+
         DB::table('timesheets1')
             ->where('id', $id)
-            ->update(['status' => 'Approved']);
+            ->update(['status' => 'Approved']);   
+               
 
-        $timesheets = DB::table('timesheets1')->where('employees_id','=',$eid)->get();
-
-            return view('vendor.employees.all_timesheets',compact('employees'));
+            $timesheets = DB::table('timesheets1')       
+            ->where('id', '=', $id)  
+            ->get();
+    
+           
+            $projects = DB::table('projects')
+            ->join('timesheet_project', 'projects.id', '=', 'timesheet_project.project_id')
+            ->join('timesheets1', 'timesheet_project.timesheet_id', '=','timesheets1.id' )  
+            ->where('timesheet_project.timesheet_id', '=', $id)  
+            ->get();
+    
+            $employees = DB::table('users')
+                ->join('employee_timesheet', 'users.id', '=', 'employee_timesheet.employees_id')
+                ->where('employee_timesheet.timesheet_id', '=', $id)
+                ->get(); 
+          
+                   
+            return view('vendor.employees.timesheet_details')->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects);
+           
+           
     }
+
+    public function reject($id)
+    {
+
+        DB::table('timesheets1')
+            ->where('id', $id)
+            ->update(['status' => 'Rejected']);   
+               
+
+            $timesheets = DB::table('timesheets1')       
+            ->where('id', '=', $id)  
+            ->get();
+    
+           
+            $projects = DB::table('projects')
+            ->join('timesheet_project', 'projects.id', '=', 'timesheet_project.project_id')
+            ->join('timesheets1', 'timesheet_project.timesheet_id', '=','timesheets1.id' )  
+            ->where('timesheet_project.timesheet_id', '=', $id)  
+            ->get();
+    
+            $employees = DB::table('users')
+                ->join('employee_timesheet', 'users.id', '=', 'employee_timesheet.employees_id')
+                ->where('employee_timesheet.timesheet_id', '=', $id)
+                ->get(); 
+          
+                   
+            return view('vendor.employees.timesheet_details')->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects);
+           
+           
+    }
+    
+
+
+    
 }
 

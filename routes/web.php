@@ -114,7 +114,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     Route::post('/vendor/create/employee/{id}','Vendor\EmployeesController@store');
 
-    Route::post('/vendor/timesheet/approve/{id}/{vid}','Vendor\EmployeesController@approve');
+    Route::post('/vendor/timesheetdetails/{id}','Vendor\EmployeesController@approve')->name('approve');
+   
+    Route::post('/vendor/timesheetdetails/{id}','Vendor\EmployeesController@reject')->name('reject');
+
+   // Route::post('/vendor/timesheetdetails/{id}','Vendor\EmployeesController@invoice')->name('invoice');
    
 
    

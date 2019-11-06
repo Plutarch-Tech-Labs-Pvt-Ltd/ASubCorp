@@ -92,6 +92,7 @@ class TimesheetsController extends Controller
         
         $timesheet_id = $timesheet->id;
         $project_id = $timesheet->project_id;
+        $vendor_id = $timesheet->vendor_id;
 
         DB::table('timesheet_project')->insert(
             ['timesheet_id' => $timesheet_id, 'project_id' => $project_id]
@@ -100,6 +101,10 @@ class TimesheetsController extends Controller
         DB::table('employee_timesheet')->insert(    
             ['timesheet_id' => $timesheet_id,                   
              'employees_id' => $id]                   
+        );
+
+        DB::table('vendor_timesheets')->insert(    
+            ['vendor_id' => $vendor_id, 'timesheet_id' => $timesheet_id]                   
         );
 
         
@@ -176,11 +181,11 @@ class TimesheetsController extends Controller
         ->where('timesheet_project.timesheet_id', '=', $id)  
         ->get();
 
-        $users = DB::table('timesheets1')->where('id', $id)->pluck('vendor_id');     
-         $vendors = DB::table('users')
-            ->leftJoin('timesheets1', 'users.id', '=', 'timesheets1.vendor_id')
-            ->where('users.id', '=', $users)
-            ->get(); 
+      
+            $vendors = DB::table('users')
+                ->join('vendor_timesheets', 'users.id', '=', 'vendor_timesheets.vendor_id')
+                ->where('vendor_timesheets.timesheet_id', '=', $id)
+                ->get(); 
       
                
         return view('employee.timesheet_details')->with('timesheets', $timesheets)->with('projects', $projects)->with('vendors', $vendors);
