@@ -33,7 +33,7 @@
                         
                     <div class="container" style="overflow-x:auto;" >    
                         <table class="table table-fluid table-hover table-responsive" id ="myTable">
-                            <thead>           
+                            <thead class="dynamicdate">           
                             </thead> 
                             <tbody id="dataTable">                
                                     <tr>                                                   
@@ -147,11 +147,43 @@
 var date1 = new Date();
 var date2 = new Date();
 var array = [];
-    
+$.date = function(dateObject) {
+    var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    var d = new Date(dateObject);
+    var day = d.getDate();
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+    var wday = weekday[d.getDay()];
+    if (day < 10) {
+        day = "0" + day;
+    }
+    if (month < 10) {
+        month = "0" + month;
+    }
+    var date = day + "/" + month + "/" + year + "<br>" + wday;
+
+    return date;
+};
+$.edate = function(dateObject) {
+    var d = new Date(dateObject);
+    var day = d.getDate();
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+    if (day < 10) {
+        day = "0" + day;
+    }
+    if (month < 10) {
+        month = "0" + month;
+    }
+    var edate = day + "-" + month + "-" + year;
+
+    return edate;
+};
+
+
 var getDateArray = function(start, end) {
     var arr = new Array();
     var dt = new Date(start);
-    console.log(dt); 
     while (dt <= end) {
         arr.push(new Date(dt));
         dt.setDate(dt.getDate() + 1);           
@@ -164,6 +196,8 @@ var getDateArray = function(start, end) {
 
 var getDateRange = function(dateArr){
     var header = [];    
+    $(".dynamicdate").empty();
+    //document.getElementById("myTable").getElementsByTagName("thead")[0]
     var table = document.getElementById("myTable").getElementsByTagName("thead")[0]; 
         
     var newTr = table.insertRow(-1);
@@ -171,7 +205,9 @@ var getDateRange = function(dateArr){
     for (var i=-1;i<dateArr.length;i++){              
         dateArr[-1]="";
         dateArr[-2]="";         
-      newTr.insertCell(-1).appendChild(document.createTextNode(dateArr[i]));
+       
+      //newTr.insertCell(-1).appendChild(document.createTextNode(dateArr[i]));
+      newTr.insertCell(-1).appendChild(document.createTextNode( $.date(dateArr[i])));
        
     }
 }
@@ -181,18 +217,15 @@ var getDateRange = function(dateArr){
 $(document).ready(function(){   
     var daterange= [];
     $( "#datepicker1" ).datepicker({         
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd-mm-yy',
         onClose: function() {    
-                     
-            // startdate = new date();            
-            
             var  startdate =  $('#datepicker1').datepicker('getDate'); 
-               
             var enddate = $('#datepicker1').datepicker('getDate');
             
-            enddate.setDate(enddate.getDate()+14)
-            $( "#datepicker2" ).datepicker("setDate", enddate); 
-                         
+            enddate.setDate(enddate.getDate()+14);
+           $('#datepicker2').val($.edate(enddate));
+           // $( "#datepicker2" ).datepicker("setDate",  $.edate(enddate)); 
+                
             var dateArr = getDateArray(startdate, enddate);             
             daterange = getDateRange(dateArr);            
         }   
