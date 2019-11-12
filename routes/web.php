@@ -83,13 +83,21 @@ Route::get('/home', 'HomeController@index')->name('home');
     
     Route::post('/create/employee','Admin\EmployeesController@store');
 
-    Route::get('/admin/view/employee/{id}','Admin\EmployeesController@view')->name('admin.employees.view');
+    Route::get('/admin/view/employee/{id}','Admin\EmployeesController@view')->name('admin.employees.view');    
 
     Route::post('/admin/edit/employee/{id}','Admin\EmployeesController@update')->name('admin.employees.update');
     
     Route::delete('/admin/delete/employee/{id}','Admin\EmployeesController@destroy')->name('admin.employees.destroy');
 
     Route::get('/admin/edit/employee/{id}','Admin\EmployeesController@edit')->name('admin.employees.edit');
+
+    Route::get('/admin/timesheetview/employee/{id}','Admin\EmployeesController@alltimesheets')->name('admin.employees.timesheetview');
+
+    Route::get('/admin/timesheetdetails/{id}', 'Admin\EmployeesController@timesheetdetails')->name('admin.timesheet_details');
+
+    Route::get('/admin/download/{id}', 'Admin\EmployeesController@download')->name('admin.download');
+
+
     
 
 
@@ -104,11 +112,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     /****************** EMPLOYEES ROUTE *****************/
 
+    Route::post('/vendor/reject/timesheetdetails/{id}','Vendor\EmployeesController@reject')->name('reject');
+
     Route::get('/vendor/employees/{id}', 'Vendor\EmployeesController@index')->name('vendor.employees');
 
     Route::get('/vendor/alltimesheets/{id}', 'Vendor\EmployeesController@alltimesheets')->name('vendor.employees.alltimesheets');
 
     Route::get('/vendor/timesheetdetails/{id}', 'Vendor\EmployeesController@timesheetdetails')->name('vendor.timesheet_details');
+
+    Route::post('/vendor/invoice/timesheetdetails/{id}','Vendor\EmployeesController@invoice')->name('invoice');
 
     Route::get('/vendor/create/employee','Vendor\EmployeesController@create');
 
@@ -116,9 +128,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     Route::post('/vendor/timesheetdetails/{id}','Vendor\EmployeesController@approve')->name('approve');
    
-    Route::post('/vendor/timesheetdetails/{id}','Vendor\EmployeesController@reject')->name('reject');
+  
 
-   // Route::post('/vendor/timesheetdetails/{id}','Vendor\EmployeesController@invoice')->name('invoice');
+    
    
 
    

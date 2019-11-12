@@ -49,7 +49,68 @@
                 <input type="text" value = " {{$timesheet->created_at}}" disabled/>
             </div>
         </div>   
-        @endforeach
+        <br><br>
+        <div class="row">
+        <input type="hidden" value = "{{$timesheet->status}}" id = 'status' style="border:none;background-color:#F7F7F7;" disabled/>
+        <div class="col-sm-1">
+                <form action="{{route('approve',$timesheet->id)}}" method="post">
+                    {{csrf_field()}}                    
+                    <input name="_method" type="hidden" value="POST">
+                    <button class="btn btn-primary" id = 'approve' type="submit">Approve</button>
+                </form>
+            </div>
+            <div class="col-sm-1">
+                <form action="{{route('reject',$timesheet->id)}}" method="post">
+                    {{csrf_field()}}                    
+                    <input name="_method" type="hidden" value="POST">
+                    <button class="btn btn-primary" id = 'reject' type="submit">Reject</button>
+                </form>
+            </div>
+        </div>
+
+        <br><br>
+    <div class="row">       
+        <div class="col-sm-6">
+            <form method="post" action="{{route('invoice',$timesheet->id)}}" enctype="multipart/form-data" >
+                <fieldset>                    
+                    <div class="form-group">
+                        <input type="hidden" value="{{csrf_token()}}" name="_token" />
+                        <label for="title">Contract Agreement :</label>
+                        <input type="file" class="form-control" name="invoice">
+                    </div>
+
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+        </div>
     </div>
+        @endforeach  
+    </div>
+
+    <script language="javascript">
+
+$(document).ready(function(){
+    var input = document.getElementById('status').value;    
+  
+    if(input == 'submitted')
+    {
+        document.getElementById("approve").disabled = false;
+        document.getElementById("reject").disabled = false;
+    }else if(input == 'Approved'){
+        document.getElementById("approve").disabled = true;
+        document.getElementById("reject").disabled = true;
+    }else if(input == 'Rejected'){
+        document.getElementById("approve").disabled = true;
+        document.getElementById("reject").disabled = true;
+    }
+
+    });
+
+    
+
+</script>
+        
+
+        
         
 @endsection

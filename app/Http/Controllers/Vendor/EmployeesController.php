@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use DB;
 use App\User;
+use App\Invoice;
 use App\Admin\Employee;
 
 class EmployeesController extends Controller
@@ -206,12 +207,41 @@ class EmployeesController extends Controller
           
                    
             return view('vendor.employees.timesheet_details')->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects);
-           
-           
     }
     
+    public function invoice(Request $request,$id)
+    {
+        $invoice = new Invoice();
+        $invoice->timesheet_id = $id;       
+        $invoice->invoice = request('invoice');
+        $invoice->save();  
+
+        if($request->has('invoice')){
+            $invoice -> update(['invoice' => $request->file('invoice')->store('invoices','public')]);               
+        }
 
 
+        $timesheets = DB::table('timesheets1')       
+        ->where('id', '=', $id)  
+        ->get();
+
+       
+        $projects = DB::table('projects')
+        ->join('timesheet_project', 'projects.id', '=', 'timesheet_project.project_id')
+        ->join('timesheets1', 'timesheet_project.timesheet_id', '=','timesheets1.id' )  
+        ->where('timesheet_project.timesheet_id', '=', $id)  
+        ->get();
+
+        $employees = DB::table('users')
+            ->join('employee_timesheet', 'users.id', '=', 'employee_timesheet.employees_id')
+            ->where('employee_timesheet.timesheet_id', '=', $id)
+            ->get(); 
+      
+               
+        return view('vendor.employees.timesheet_details')->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects);
+
+    }
+ 
     
 }
 

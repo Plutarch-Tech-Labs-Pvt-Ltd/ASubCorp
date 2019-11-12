@@ -18,7 +18,8 @@
                 <td>{{$employee->id}}</td>
                 <td>{{$employee->name}}</td>
                 <td>{{$employee->email}}</td>
-                <td><a href="{{route('admin.employees.view',$employee->id)}}" class="btn btn-info">View Details</a>
+                <td><a href="{{route('admin.employees.view',$employee->user_id)}}" class="btn btn-info">View Details</a>
+                <td><a href="{{route('admin.employees.timesheetview',$employee->user_id)}}" class="btn btn-info">View Timesheets</a>
                 <td><a href="{{route('admin.employees.edit',$employee->id)}}" class="btn btn-primary">Edit</a></td>
                 <td>
                     <form action="{{route('admin.employees.destroy',$employee->id)}}" method="post">

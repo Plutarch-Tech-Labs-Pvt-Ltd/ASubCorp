@@ -30,12 +30,12 @@
                     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i> Dashboard</a></li>
                     
                     
-                    <li><a><i class="fa fa-list"></i>Roles <span class="fa fa-chevron-down"></span></a>
+                <!--     <li><a><i class="fa fa-list"></i>Roles <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{url('/roles')}}">All Roles</a></li>
                             <li><a href="{{url('/create/role')}}">Create Role</a></li>
                         </ul>
-                    </li>         
+                    </li>        -->  
                     
                     
                     <li><a><i class="fa fa-users"></i>Vendors <span class="fa fa-chevron-down"></span></a>
@@ -57,13 +57,7 @@
                             <li><a href="{{url('/projects')}}">All Projects</a></li>
                             <li><a href="{{url('/create/project')}}">Create Project</a></li>
                         </ul>
-                    </li>
-                    <li><a><i class="fa fa-list"></i>Time Sheets <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{url('/projects')}}">All Time Sheets</a></li>
-                            <li><a href="{{url('/create/project')}}">Create Time Sheets</a></li>
-                        </ul>
-                    </li>
+                    </li>                    
                 </ul>
             </div>
 

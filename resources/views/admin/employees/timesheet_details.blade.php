@@ -1,12 +1,12 @@
-@extends('layouts.app_vendor')
+@extends('layouts.app')
 @section('title','Timesheet Details')
 @section('content')
     <div class="container">
         <div class="row" style="padding:10px 10px;">
             <div class="col-sm-4">                
-                <label>Employee : </label>
-                @foreach($employees as $employee)
-                <input type="text" value = " {{$employee->name}}" disabled/>
+                <label>Vendor : </label>
+                @foreach($vendors as $vendor)
+                <input type="text" value = " {{$vendor->name}}" disabled/>
                 @endforeach
             </div>
            
@@ -15,12 +15,11 @@
                 @foreach($projects as $project)
                 <input type="text" value = " {{$project->project_name}}" disabled/>
                 @endforeach
-            </div> 
+            </div>
+           
         </div>   
- 
-        
         @foreach($timesheets as $timesheet)
-        <div class="row" style="padding:10px 10px;">        
+        <div class="row" style="padding:10px 10px;">
             <div class="col-sm-4">                
                 <label>Start Date : </label>
                 <input type="text" value = " {{$timesheet->start_date}}" disabled/>
@@ -50,7 +49,7 @@
                 <input type="text" value = " {{$timesheet->created_at}}" disabled/>
             </div>
         </div>   
-<br><br>
+        <br><br>
         <div class="row">
         <input type="hidden" value = "{{$timesheet->status}}" id = 'status' style="border:none;background-color:#F7F7F7;" disabled/>
         <div class="col-sm-1">
@@ -72,19 +71,13 @@
         <br><br>
     <div class="row">       
         <div class="col-sm-6">
-            <form method="post" action="{{route('invoice',$timesheet->id)}}" enctype="multipart/form-data" >
-                <fieldset>                    
-                    <div class="form-group">
-                        <input type="hidden" value="{{csrf_token()}}" name="_token" />
-                        <label for="title">Contract Agreement :</label>
-                        <input type="file" class="form-control" name="invoice">
-                    </div>
-
-                </fieldset>
-                <button type="submit" class="btn btn-primary">Upload</button>
-            </form>
+        @foreach($invoices as $invoice)
+        <p>{{$invoice->invoice}}</p>
+            <a href="{{route('admin.download',$timesheet->id)}}" class="btn btn-primary">Download</a> 
+        @endforeach
         </div>
     </div>
+   
         @endforeach  
     </div>
 
@@ -110,5 +103,7 @@ $(document).ready(function(){
     
 
 </script>
+        
+       
         
 @endsection

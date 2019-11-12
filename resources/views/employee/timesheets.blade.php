@@ -160,7 +160,7 @@ $.date = function(dateObject) {
     if (month < 10) {
         month = "0" + month;
     }
-    var date = day + "/" + month + "/" + year + "<br>" + wday;
+    var date = year + "-" + month + "-" + day + " " + wday;
 
     return date;
 };
@@ -175,7 +175,7 @@ $.edate = function(dateObject) {
     if (month < 10) {
         month = "0" + month;
     }
-    var edate = day + "-" + month + "-" + year;
+    var edate = year + "-" + month + "-" + day;
 
     return edate;
 };
@@ -216,8 +216,8 @@ var getDateRange = function(dateArr){
 
 $(document).ready(function(){   
     var daterange= [];
-    $( "#datepicker1" ).datepicker({         
-        dateFormat: 'dd-mm-yy',
+    $( "#datepicker1" ).datepicker({ 
+        dateFormat : "yy-mm-dd",       
         onClose: function() {    
             var  startdate =  $('#datepicker1').datepicker('getDate'); 
             var enddate = $('#datepicker1').datepicker('getDate');
@@ -233,7 +233,7 @@ $(document).ready(function(){
     });   
      
     $( "#datepicker2" ).datepicker();    
-    $( "#datepicker2" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );   
+      
 });
 
 
