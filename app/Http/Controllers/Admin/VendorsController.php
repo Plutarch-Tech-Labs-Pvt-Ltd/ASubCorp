@@ -108,15 +108,12 @@ class VendorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $vendor = new User();
-        $data = $this->validate($request, [
-            'vendor-name'=>'required',
-            'vendor-email'=> 'required',
-            'vendor-password'=> 'required'
-        ]);
-        $data['id'] = $id;
-        $vendor->updateVendor($data);
-
+        $vendor = User::find($id);
+        $vendor->name = $request->get('vendor-name');
+        $vendor->email = $request->get('vendor-email');  
+        $vendor->password = $request->get('vendor-password');
+        $vendor->save();
+        
         return redirect('/all/vendors')->with('success', 'New vendor has been updated!!');
     }
 

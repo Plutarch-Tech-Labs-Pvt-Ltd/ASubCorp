@@ -48,6 +48,35 @@
                 <label>Submitted Date : </label>
                 <input type="text" value = " {{$timesheet->created_at}}" disabled/>
             </div>
+        </div>  
+        <br><br>
+        
+         <div class="row">
+              <div class="col-sm-2">                
+                <label>Status : </label>
+                
+            </div>
+            <div class="col-sm-2">                
+                <label style="color:blue;">Submitted</label>
+               @if($timesheet->status == "submitted")
+                <i class="fa fa-check" aria-hidden="true"></i>
+               @endif
+
+                
+            </div>
+            <div class="col-sm-2">
+                <label style="color:green;">Approved</label>
+                 @if($timesheet->status == "Approved")
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                @endif
+                
+            </div>
+            <div class="col-sm-2">
+                <label style="color:red;">Rejected</labe>
+                 @if($timesheet->status == "Rejected")
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                @endif
+            </div>
         </div>   
         <br><br>
         <div class="row">
@@ -71,10 +100,7 @@
         <br><br>
     <div class="row">       
         <div class="col-sm-6">
-        @foreach($invoices as $invoice)
-        <p>{{$invoice->invoice}}</p>
-            <a href="{{route('admin.download',$timesheet->id)}}" class="btn btn-primary">Download</a> 
-        @endforeach
+        <a href="{{route('admin.download',$timesheet->id)}}" class="btn btn-primary">Download</a>
         </div>
     </div>
    

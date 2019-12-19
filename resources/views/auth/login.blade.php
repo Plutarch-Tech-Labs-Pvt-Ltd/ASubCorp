@@ -3,7 +3,12 @@
 @section('content')
 
     <div class="animate form login_form">
-        <section class="login_content">
+       <section class="login_content">
+         <h2><i class="fa fa-plus-circle"></i> {{'Asubcorp'}}</h2>
+            <div>
+                <p>©{{date('Y')}} </p>
+            </div>      
+            <div class="clearfix"></div>
             <form role="form" method="POST" action="{{ url('/login') }}">
                 {{csrf_field()}}
                 <h1>Login</h1>
@@ -28,21 +33,9 @@
                     <!--a class="reset_pass" href="{{ url('/password/reset') }}">Lost your password?</a-->
                 </div>
 
-                <div class="clearfix"></div>
+              
 
-                <div class="separator">
-                    <!--p class="change_link">New to site?
-                        <a href="{{route('register')}}" class="to_register"> Create Account </a>
-                    </p-->
-
-                    <div class="clearfix"></div>
-                    <br />
-
-                    <div>
-                        <h1><i class="fa fa-plus-circle"></i> {{config('app.name')}}</h1>
-                        <p>©{{date('Y')}} </p>
-                    </div>
-                </div>
+                
             </form>
         </section>
     </div>

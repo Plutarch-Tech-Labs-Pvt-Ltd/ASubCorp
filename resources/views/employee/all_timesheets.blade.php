@@ -19,7 +19,7 @@
                 <td>{{$timesheet->start_date}}</td>
                 <td>{{$timesheet->end_date}}</td>
                 <td>{{$timesheet->created_at}}</td> 
-                <td>{{$timesheet->status}}</td>
+                <td>{{$timesheet->status}}  <i class="fa fa-check" aria-hidden="true"></i></td>
                 <td><a href="{{route('timesheet_details',$timesheet->id)}}" class="btn btn-primary">View</a></td>              
                 
             </tr>

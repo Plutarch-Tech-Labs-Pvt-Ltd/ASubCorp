@@ -38,12 +38,6 @@
                         </ul>
                     </li>
                     
-                    <li><a><i class="fa fa-list"></i>Project <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{url('/projects')}}">All Projects</a></li>
-                            <li><a href="{{url('/create/project')}}">Create Project</a></li>
-                        </ul>
-                    </li>
                     
                 </ul>
 

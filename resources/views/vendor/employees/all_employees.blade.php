@@ -20,10 +20,10 @@
                 <td>{{$employee->id}}</td>
                 <td>{{$employee->name}}</td>
                 <td>{{$employee->email}}</td>
-                <td><a href="{{url('/vendor/alltimesheets',$employee->user_id)}}" class="btn btn-info">View Timesheets</a>
-                <td><a href="" class="btn btn-primary">Edit</a></td>
+                <td><a href="{{url('/vendor/alltimesheets',$employee->user_id)}}" class="btn btn-info">View Timesheets</a></td>
                 <td>
-                    <form action="" method="post">
+                    
+                    <form action="{{route('vendor.employees.destroy',$employee->id)}}" method="post">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="DELETE">
                     <button class="btn btn-danger" type="submit">Delete</button>

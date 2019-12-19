@@ -30,14 +30,14 @@
             <div class="col-sm-10">{{$employee[0]->employee_type}}</div>
         </div>
         
-         <div class="row">
+        <div class="row">
             <div class="col-sm-2">Vendor Name  :</div>
             <div class="col-sm-10">{{$employee[0]->vendor_id}}</div>
         </div>
         
          <div class="row">
             <div class="col-sm-2">Project Name :</div>
-            <div class="col-sm-10">{{$employee[0]->project_id}}</div>
+            <div class="col-sm-10"></div>
         </div>
         
          <div class="row">

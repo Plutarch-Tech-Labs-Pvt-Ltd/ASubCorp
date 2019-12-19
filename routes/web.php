@@ -30,6 +30,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
      /****************** ROLES ROUTE *****************/
 
+     Route::post('/admin/reject/timesheetdetails/{id}','Admin\EmployeesController@reject')->name('reject');
+ 
      Route::get('/roles', 'Admin\RolesController@index');
 
      Route::get('/create/role','Admin\RolesController@create');
@@ -58,6 +60,8 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::post('/create/vendor','Admin\VendorsController@store');
 
     Route::delete('/delete/vendor/{id}','Admin\VendorsController@destroy')->name('admin.vendor.delete');
+    
+   
 
 
     /****************** PROJECTS ROUTE *****************/
@@ -96,8 +100,9 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/admin/timesheetdetails/{id}', 'Admin\EmployeesController@timesheetdetails')->name('admin.timesheet_details');
 
     Route::get('/admin/download/{id}', 'Admin\EmployeesController@download')->name('admin.download');
+    
 
-
+      Route::post('/admin/timesheetdetails/{id}','Admin\EmployeesController@approve')->name('approve');
     
 
 
@@ -112,7 +117,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     /****************** EMPLOYEES ROUTE *****************/
 
-    Route::post('/vendor/reject/timesheetdetails/{id}','Vendor\EmployeesController@reject')->name('reject');
+   
 
     Route::get('/vendor/employees/{id}', 'Vendor\EmployeesController@index')->name('vendor.employees');
 
@@ -120,17 +125,20 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/vendor/timesheetdetails/{id}', 'Vendor\EmployeesController@timesheetdetails')->name('vendor.timesheet_details');
 
-    Route::post('/vendor/invoice/timesheetdetails/{id}','Vendor\EmployeesController@invoice')->name('invoice');
+    Route::any('/vendor/invoice/timesheetdetails/{id}','Vendor\EmployeesController@invoice')->name('invoice');
 
-    Route::get('/vendor/create/employee','Vendor\EmployeesController@create');
+    Route::get('/vendor/create/employees','Vendor\EmployeesController@create');
 
-    Route::post('/vendor/create/employee/{id}','Vendor\EmployeesController@store');
-
-    Route::post('/vendor/timesheetdetails/{id}','Vendor\EmployeesController@approve')->name('approve');
-   
-  
-
+    Route::post('/vendor/create/employees/{id}','Vendor\EmployeesController@store');
     
+    Route::delete('/vendor/delete/employee/{id}','Vendor\EmployeesController@destroy')->name('vendor.employees.destroy');
+
+  
+   
+    
+     Route::any('/upload/invoice/{id}','fileController@index')->name('vendor.invoice');
+     
+     //Route::any('/vendor/timesheet/{id}','fileController@store')->name('vendor.invoice.store');
    
 
    

@@ -49,40 +49,47 @@
                 <label>Submitted Date : </label>
                 <input type="text" value = " {{$timesheet->created_at}}" disabled/>
             </div>
+        </div>  
+        
+        <br><br>
+        
+         <div class="row">
+              <div class="col-sm-2">                
+                <label>Status : </label>
+                
+            </div>
+            <div class="col-sm-2">                
+                <label style="color:blue;">Submitted</label>
+               @if($timesheet->status == "Submitted")
+                <i class="fa fa-check" aria-hidden="true"></i>
+               @endif
+
+                
+            </div>
+            <div class="col-sm-2">
+                <label style="color:green;">Approved</label>
+                 @if($timesheet->status == "Approved")
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                @endif
+                
+            </div>
+            <div class="col-sm-2">
+                <label style="color:red;">Rejected</labe>
+                 @if($timesheet->status == "Rejected")
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                @endif
+            </div>
         </div>   
 <br><br>
-        <div class="row">
-        <input type="hidden" value = "{{$timesheet->status}}" id = 'status' style="border:none;background-color:#F7F7F7;" disabled/>
-        <div class="col-sm-1">
-                <form action="{{route('approve',$timesheet->id)}}" method="post">
-                    {{csrf_field()}}                    
-                    <input name="_method" type="hidden" value="POST">
-                    <button class="btn btn-primary" id = 'approve' type="submit">Approve</button>
-                </form>
-            </div>
-            <div class="col-sm-1">
-                <form action="{{route('reject',$timesheet->id)}}" method="post">
-                    {{csrf_field()}}                    
-                    <input name="_method" type="hidden" value="POST">
-                    <button class="btn btn-primary" id = 'reject' type="submit">Reject</button>
-                </form>
-            </div>
-        </div>
+@if($invoice)
 
+    <p>{{$invoice->id}}</p>
+    <a href="{{asset('public/uploads/timesheet')}}/{{$invoice->invoice}}" download><button class="btn btn-success">Download Invoice</button></a>    
+@endif
         <br><br>
     <div class="row">       
         <div class="col-sm-6">
-            <form method="post" action="{{route('invoice',$timesheet->id)}}" enctype="multipart/form-data" >
-                <fieldset>                    
-                    <div class="form-group">
-                        <input type="hidden" value="{{csrf_token()}}" name="_token" />
-                        <label for="title">Contract Agreement :</label>
-                        <input type="file" class="form-control" name="invoice">
-                    </div>
-
-                </fieldset>
-                <button type="submit" class="btn btn-primary">Upload</button>
-            </form>
+           <a href="{{url('/upload/invoice',$timesheet->id)}}" class="btn btn-info" accept=".doc,.docx,.pdf,.xlsx">Upload Invoice</a>
         </div>
     </div>
         @endforeach  

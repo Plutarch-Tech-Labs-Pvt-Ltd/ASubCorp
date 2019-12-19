@@ -33,7 +33,6 @@
             <label for="title">Employee Password:</label>
             <input type="text" class="form-control" name="employee-password"/>
         </div>
-       
         <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
