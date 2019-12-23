@@ -96,13 +96,55 @@
                 </form>
             </div>
         </div>
-
-        <br><br>
-    <div class="row">       
-        <div class="col-sm-6">
-        <a href="{{route('admin.download',$timesheet->id)}}" class="btn btn-primary">Download</a>
-        </div>
-    </div>
+      <br>
+       @if($expenses)
+        <div class="row" style="padding:10px 10px;">
+            <h4>Expenses Details</h4>
+            @foreach($expenses as $expenses)
+            <table class="table table-striped">
+        <thead>
+            <tr>
+              <td>Id</td>
+              <td>Type of expense</td>
+              <td>Amount [$]</td>
+              <td>Date</td>
+              <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{$expenses->id}}</td>
+                <td>{{$expenses->type_of_expenses}}</td>
+                <td>{{$expenses->amount}}</td>
+                <td>{{$expenses->date}}</td>
+                <td><a href="{{asset('public/uploads/expenses')}}/{{$expenses->receipt}}" download><button class="btn btn-success">Download Reciept</button></a></td>
+            </tr>
+        </tbody>
+    </table>
+     @endforeach
+        </div>   
+        <br>
+        @endif
+      
+      <h4>Invoice Details</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <td>Invoice Id</td>
+              <td>Invoice Title</td>
+              <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+             @if($invoice)
+            <tr>
+                <td>{{$invoice->id}}</td>
+                <td>{{$invoice->title}}</td>
+                <td><a href="{{asset('public/uploads/timesheet')}}/{{$invoice->invoice}}" download><button class="btn btn-success">Download Invoice</button></a></td>
+            </tr>
+             @endif
+        </tbody>
+    </table>
    
         @endforeach  
     </div>

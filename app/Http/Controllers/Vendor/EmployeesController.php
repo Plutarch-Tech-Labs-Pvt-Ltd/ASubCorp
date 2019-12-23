@@ -159,21 +159,22 @@ class EmployeesController extends Controller
                 ->join('employee_timesheet', 'users.id', '=', 'employee_timesheet.employees_id')
                 ->where('employee_timesheet.timesheet_id', '=', $id)
                 ->get(); 
+                
             $invoice = DB::table('invoice')       
             ->where('timesheet_id', '=', $id)  
             ->first();
+            
+            $expenses = DB::table('expenses')
+            ->where('timesheet_id', '=', $id)
+            ->get();
                    
-            return view('vendor.employees.timesheet_details')->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects)->with('invoice',$invoice);
+            return view('vendor.employees.timesheet_details')->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects)->with('invoice',$invoice)->with('expenses',$expenses);
         }
 
     
     
     public function invoice(Request $request,$id)
     {
-         $request->validate([
-            'invoice' => 'mimes:doc,docx,pdf,xlsx|max:50',
-        ]);
-        
         
         $imageName = '';
         if ($request->hasFile('invoice')) {
@@ -185,6 +186,7 @@ class EmployeesController extends Controller
         // exit();
         $invoice = new Invoice();
         $invoice->timesheet_id = $id;
+        $invoice->title = request('title');
         $invoice->invoice = $imageName;
         $invoice->save();  
 
@@ -207,9 +209,13 @@ class EmployeesController extends Controller
             ->join('employee_timesheet', 'users.id', '=', 'employee_timesheet.employees_id')
             ->where('employee_timesheet.timesheet_id', '=', $id)
             ->get(); 
+            
+        $expenses = DB::table('expenses')
+            ->where('timesheet_id', '=', $id)
+            ->get();
       
                
-        return view('vendor.employees.timesheet_details')->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects)->with('invoice', $invoice);
+        return view('vendor.employees.timesheet_details')->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects)->with('invoice', $invoice)->with('expenses',$expenses);
 
     }
  

@@ -136,7 +136,7 @@ Route::get('/home', 'HomeController@index')->name('home');
   
    
     
-     Route::any('/upload/invoice/{id}','fileController@index')->name('vendor.invoice');
+     Route::any('/upload/invoice/{id}','Vendor\EmployeesController@upload')->name('vendor.invoice');
      
      //Route::any('/vendor/timesheet/{id}','fileController@store')->name('vendor.invoice.store');
    
@@ -145,7 +145,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     /*
     |--------------------------------------------------------------------------
-    | Employee Dashboard
+    | Employee Dashboard - C2C
     |--------------------------------------------------------------------------
     */
 
@@ -162,3 +162,25 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/alltimesheets/{id}', 'TimesheetsController@alltimesheets');
 
     Route::get('/timesheets/details/{id}', 'TimesheetsController@viewtimesheet')->name('timesheet_details');
+    
+    
+     /*
+    |--------------------------------------------------------------------------
+    | Employee Dashboard - w2
+    |--------------------------------------------------------------------------
+    */
+    
+       Route::get('/w2/employee', 'EmployeeW2Controller@index')->name('employeew2.dashboard');
+       
+     /****************** TIMESHEET ROUTE *****************/
+     
+     Route::get('/timesheets', 'W2TimesheetsController@index');
+     
+     Route::get('/w2/alltimesheets/{id}', 'W2TimesheetsController@alltimesheets');
+     
+     Route::get('/w2/create/timesheet/{id}','W2TimesheetsController@create')->name('w2_create_timesheet');
+     
+     Route::post('/w2/create/timesheet/{id}','W2TimesheetsController@store');
+     
+     Route::get('/w2/timesheets/details/{id}', 'W2TimesheetsController@viewtimesheet')->name('w2_timesheet_details');
+

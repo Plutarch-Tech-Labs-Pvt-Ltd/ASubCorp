@@ -1,4 +1,4 @@
-@extends('layouts.app_employee')
+@extends('layouts.app_employeew2')
 @section('title','Timesheet Details')
 @section('content')
     <div class="container">

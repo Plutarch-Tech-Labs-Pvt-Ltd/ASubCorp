@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <input type="hidden" value="{{csrf_token()}}" name="_token" />
                         <label for="title">Invoice :</label>
-                        <input type="file" class="form-control" name="invoice">
+                        <input type="file" class="form-control" name="invoice" accept=".pdf, .doc, .docx, .xlsx" size="50000">
                     </div>
 
                 </fieldset>

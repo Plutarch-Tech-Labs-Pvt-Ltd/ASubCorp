@@ -145,7 +145,7 @@ $.edate = function(dateObject) {
     if (month < 10) {
         month = "0" + month;
     }
-    var edate = year + "-" + month + "-" + day;
+    var edate = year + "-" + month + "-" + day ;
 
     return edate;
 };

@@ -65,19 +65,6 @@ class TimesheetsController extends Controller
      */
     public function store(Request $request, $id)
     {
-
-
-      /*   $device = new Device();
- 
-        $device->name = request('name');
-        $device->description = request('description');
- 
-        $device->save(); 
-        $projects = new EmployeeTimesheet();         
-        $projects->employees_id = $id;                 
-        $projects->project_id =  request('project-id');
-        $projects->save();   */
-
         $timesheet = new Timesheet();
         $timesheet->employees_id = $id;
         $timesheet->vendor_id = request('vendor-id');

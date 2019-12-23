@@ -197,20 +197,24 @@ class EmployeesController extends Controller
                 ->where('vendor_timesheets.timesheet_id', '=', $id)
                 ->get(); 
              
-            $invoices = DB::table('invoice')       
+             $invoice = DB::table('invoice')       
             ->where('timesheet_id', '=', $id)  
+            ->first();
+            
+            $expenses = DB::table('expenses')
+            ->where('timesheet_id', '=', $id)
             ->get();
                    
-            return view('admin.employees.timesheet_details')->with('invoices', $invoices)->with('vendors', $vendors)->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects);
+            return view('admin.employees.timesheet_details')->with('invoice',$invoice)->with('vendors', $vendors)->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects)->with('expenses',$expenses);
         }
         
         
         public function approve($id)
-    {
+        {
 
-        DB::table('timesheets1')
-            ->where('id', $id)
-            ->update(['status' => 'Approved']);   
+            DB::table('timesheets1')
+                ->where('id', $id)
+                ->update(['status' => 'Approved']);   
                
 
             $timesheets = DB::table('timesheets1')       
@@ -234,8 +238,12 @@ class EmployeesController extends Controller
                 ->join('vendor_timesheets', 'users.id', '=', 'vendor_timesheets.vendor_id')
                 ->where('vendor_timesheets.timesheet_id', '=', $id)
                 ->get(); 
+                
+            $expenses = DB::table('expenses')
+            ->where('timesheet_id', '=', $id)
+            ->get();
                    
-            return view('admin.employees.timesheet_details')->with('employees', $employees)->with('vendors', $vendors)->with('timesheets', $timesheets)->with('projects', $projects);
+            return view('admin.employees.timesheet_details')->with('expenses',$expenses)->with('employees', $employees)->with('vendors', $vendors)->with('timesheets', $timesheets)->with('projects', $projects);
            
            
     }
@@ -268,51 +276,14 @@ class EmployeesController extends Controller
                 ->join('employee_timesheet', 'users.id', '=', 'employee_timesheet.employees_id')
                 ->where('employee_timesheet.timesheet_id', '=', $id)
                 ->get(); 
-          
+            
+            $expenses = DB::table('expenses')
+            ->where('timesheet_id', '=', $id)
+            ->get();
                    
-            return view('admin.employees.timesheet_details')->with('employees', $employees)->with('vendors', $vendors)->with('timesheets', $timesheets)->with('projects', $projects);
+            return view('admin.employees.timesheet_details')->with('expenses',$expenses)->with('employees', $employees)->with('vendors', $vendors)->with('timesheets', $timesheets)->with('projects', $projects);
     }
-
-        public function download($id)
-        {
-            $filename = DB::table('invoice')                
-            ->where('timesheet_id', '=', $id)  
-            ->value('invoice');
-
-            $file=storage_path('app/public'). "/invoices/mcnLW2x2PfaoZqu5DaOrjmQWHH5L1SuSIIprKK5g";
-            
-
-            $headers = array(
-                    'Content-Type: application/pdf',
-                    );
-                
-                    $timesheets = DB::table('timesheets1')       
-                    ->where('id', '=', $id)  
-                    ->get();
-            
-                   
-                    $projects = DB::table('projects')
-                    ->join('timesheet_project', 'projects.id', '=', 'timesheet_project.project_id')
-                    ->join('timesheets1', 'timesheet_project.timesheet_id', '=','timesheets1.id' )  
-                    ->where('timesheet_project.timesheet_id', '=', $id)  
-                    ->get();
-            
-                    $employees = DB::table('users')
-                        ->join('employee_timesheet', 'users.id', '=', 'employee_timesheet.employees_id')
-                        ->where('employee_timesheet.timesheet_id', '=', $id)
-                        ->get(); 
-                   $vendors = DB::table('users')
-                        ->join('vendor_timesheets', 'users.id', '=', 'vendor_timesheets.vendor_id')
-                        ->where('vendor_timesheets.timesheet_id', '=', $id)
-                        ->get(); 
-                     
-                    $invoices = DB::table('invoice')       
-                    ->where('timesheet_id', '=', $id)  
-                    ->get();
-                   return response()->download(storage_path("app/public/invoices/mcnLW2x2PfaoZqu5DaOrjmQWHH5L1SuSIIprKK5g"));    
-                    return view('admin.employees.timesheet_details')->with('invoices', $invoices)->with('vendors', $vendors)->with('employees', $employees)->with('timesheets', $timesheets)->with('projects', $projects);
-           
-        }
+       
 
 
 }

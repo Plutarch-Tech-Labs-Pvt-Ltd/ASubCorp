@@ -49,18 +49,15 @@
                 <label>Submitted Date : </label>
                 <input type="text" value = " {{$timesheet->created_at}}" disabled/>
             </div>
-        </div>  
-        
+        </div> 
         <br><br>
-        
          <div class="row">
               <div class="col-sm-2">                
                 <label>Status : </label>
-                
             </div>
             <div class="col-sm-2">                
                 <label style="color:blue;">Submitted</label>
-               @if($timesheet->status == "Submitted")
+               @if($timesheet->status == "submitted")
                 <i class="fa fa-check" aria-hidden="true"></i>
                @endif
 
@@ -80,42 +77,82 @@
                 @endif
             </div>
         </div>   
-<br><br>
-@if($invoice)
-
-    <p>{{$invoice->id}}</p>
-    <a href="{{asset('public/uploads/timesheet')}}/{{$invoice->invoice}}" download><button class="btn btn-success">Download Invoice</button></a>    
-@endif
-        <br><br>
-    <div class="row">       
-        <div class="col-sm-6">
-           <a href="{{url('/upload/invoice',$timesheet->id)}}" class="btn btn-info" accept=".doc,.docx,.pdf,.xlsx">Upload Invoice</a>
-        </div>
-    </div>
+        <br>
+@if($expenses)
+        <div class="row" style="padding:10px 10px;">
+            <h4>Expenses Details</h4>
+            @foreach($expenses as $expenses)
+            <table class="table table-striped">
+        <thead>
+            <tr>
+              <td>Id</td>
+              <td>Type of expense</td>
+              <td>Amount [$]</td>
+              <td>Date</td>
+              <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{$expenses->id}}</td>
+                <td>{{$expenses->type_of_expenses}}</td>
+                <td>{{$expenses->amount}}</td>
+                <td>{{$expenses->date}}</td>
+                <td><a href="{{asset('public/uploads/expenses')}}/{{$expenses->receipt}}" download><button class="btn btn-success">Download Reciept</button></a></td>
+            </tr>
+        </tbody>
+    </table>
+     @endforeach
+      @endif
+        </div>   
+        <br>
+    <h4>Invoice Details</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <td>Invoice Id</td>
+              <td>Invoice Title</td>
+              <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+             @if($invoice)
+            <tr>
+                <td>{{$invoice->id}}</td>
+                <td>{{$invoice->title}}</td>
+                <td><a href="{{asset('public/uploads/timesheet')}}/{{$invoice->invoice}}" download><button class="btn btn-success">Download Invoice</button></a></td>
+            </tr>
+             @endif
+        </tbody>
+    </table>
+    <br><br>
+        @if(!$invoice)
+            <div class="row">       
+                <div class="col-sm-6">
+                   <a href="{{url('/upload/invoice',$timesheet->id)}}" class="btn btn-info" accept=".doc,.docx,.pdf,.xlsx">Upload Invoice</a>
+                </div>
+            </div>
+        @endif
         @endforeach  
     </div>
 
     <script language="javascript">
-
-$(document).ready(function(){
-    var input = document.getElementById('status').value;    
-  
-    if(input == 'submitted')
-    {
-        document.getElementById("approve").disabled = false;
-        document.getElementById("reject").disabled = false;
-    }else if(input == 'Approved'){
-        document.getElementById("approve").disabled = true;
-        document.getElementById("reject").disabled = true;
-    }else if(input == 'Rejected'){
-        document.getElementById("approve").disabled = true;
-        document.getElementById("reject").disabled = true;
-    }
-
-    });
-
+    $(document).ready(function(){
+        var input = document.getElementById('status').value;    
+      
+        if(input == 'submitted')
+        {
+            document.getElementById("approve").disabled = false;
+            document.getElementById("reject").disabled = false;
+        }else if(input == 'Approved'){
+            document.getElementById("approve").disabled = true;
+            document.getElementById("reject").disabled = true;
+        }else if(input == 'Rejected'){
+            document.getElementById("approve").disabled = true;
+            document.getElementById("reject").disabled = true;
+        }
     
-
-</script>
+        });
+    </script>
         
 @endsection

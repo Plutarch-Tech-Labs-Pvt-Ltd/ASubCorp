@@ -15,9 +15,9 @@ class CreateInvoice extends Migration
     {
         Schema::create('invoice', function (Blueprint $table) {
             $table->increments('id')->unsigned(); 
-            $table->uuid('uuid')->nullable();
             $table->integer('timesheet_id')->unsigned();
-            $table->foreign('timesheet_id')->references('id')->on('timesheets1')->onUpdate('cascade')->onDelete('cascade');            
+            $table->foreign('timesheet_id')->references('id')->on('timesheets1')->onUpdate('cascade')->onDelete('cascade');      
+            $table->string('title');
             $table->string('invoice');
             $table->timestamps();
         });
